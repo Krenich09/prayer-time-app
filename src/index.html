@@ -1,12 +1,123 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
+<!-- Use bulma for css -->
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prayer Time</title>
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/9abe29d3f9.js" crossorigin="anonymous"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+
+
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <div class="tabs is-centered">
+      <ul>
+        <li class="is-active">
+          <a>
+            <span class="icon is-small"
+              ><i class="fa-solid fa-clock"></i></i
+            ></span>
+            <span>Timings</span>
+          </a>
+        </li>
+        <li>
+          <a>
+            <span class="icon is-small">
+              <i class="fa-solid fa-gear"></i></span>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div id="holder" style="display: none;">
+      <section class="section py-1">
+        <div class="columns">
+          <div class="column">
+            <span class="icon-text has-text-info">
+              <span class="icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </span>
+              <span id="location">Info</span>
+              <span id="curTimer">Info</span>
+            </span>
+          </div>
+        </div>
+  
+      </section>
+      <section class="section">
+        <div class="container has-background-primary-dark p-6 box is-shadowless " style="min-height: 190px;">
+          <div class="columns">
+            <div class="column is-6 has-text-primary-65">
+
+              <span id="arabicName" class="has-text-left is-size-4 amiri-quran-regular has-text-weight-semibold"></span>
+
+              <h2 id="timer" class="subtitle has-text-primary-40">
+                Countdown: [00:00]
+            </div>
+            
+            <div class="column is-6">
+              <p class="has-text-primary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus modi aspernatur atque. Dolore accusamus, corporis qui in, ad labore odio praesentium suscipit hic nihil possimus ipsam iste ut! Repellendus, soluta.</p>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="cards" class="section">
+        <div class="container">
+          <div class="collumns">
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <p class="title is-primary">Fajr</p>
+                  <p id="fajr" class="subtitle ">Time: [00:00]</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <p class="title">Duhr</p>
+                  <p id="dhuhr" class="subtitle">Time: [00:00]</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <p class="title">Asr</p>
+                  <p id="asr" class="subtitle">Time: [00:00]</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <p class="title">Maghreb</p>
+                  <p id="maghrib" class="subtitle">Time: [00:00]</p>
+                </div>
+              </div>
+            </div>
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <p class="title">Isha</p>
+                  <p id="isha" class="subtitle">Time: [00:00]</p>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+      </section>
+    </div>
+
+    <script src="render.js"></script>
   </body>
 </html>
