@@ -29,6 +29,9 @@
   },
   "license": "MIT",
   "dependencies": {
+    "bulma-checkbox": "^1.2.1",
+    "bulma-radio": "^1.2.0",
+    "bulma-switch-control": "^1.2.2",
     "dotenv": "^16.4.5",
     "electron-squirrel-startup": "^1.0.0",
     "nodemon": "^3.1.0"

@@ -1,0 +1,178 @@
+<!DOCTYPE html> 
+<!-- Use bulma for css -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prayer Time</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="C:\Users\User\Documents\GitHub\PrayerApp\prayerapp\node_modules\bulma-switch-control\css\main.css">
+    <link rel="stylesheet" href="C:\Users\User\Documents\GitHub\PrayerApp\prayerapp\node_modules\bulma-checkbox\css\main.css">
+    <link rel="stylesheet" href="C:\Users\User\Documents\GitHub\PrayerApp\prayerapp\node_modules\bulma-radio\css\main.css">
+    <script src="https://kit.fontawesome.com/9abe29d3f9.js" crossorigin="anonymous"></script>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+
+
+  </head>
+  <body>
+    <div class="tabs is-centered">
+      <ul>
+        <li>
+          <a href="index.html">
+            <span class="icon is-small"
+              ><i class="fa-solid fa-clock"></i></i
+            ></span>
+            <span>Timings</span>
+          </a>
+        </li>
+        <li class="is-active">
+          <a>
+            <span class="icon is-small">
+              <i class="fa-solid fa-gear"></i></span>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="">
+      <section class="section py-1">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fa-solid fa-gears"></i>
+          </span>
+          <span class="pl-1">Location Settings:</span>
+        </span>
+        <div class="columns is-flex-direction-row pt-5 mb-0 ml-5" style="max-width: 80px;">
+          <div class="column">
+            <div class="field">
+              <label class="b-radio radio">
+                <input id="auto" type="radio" name="group_1">
+                <span class="check"></span>
+                <span class="control-label">Auto</span>
+              </label>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="b-radio radio">
+                <input id="manual" type="radio" name="group_1">
+                <span class="check"></span>
+                <span class="control-label">Manual</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="box ml-5 mb-6" style="max-width: 350px;">
+          <div class="field">
+            <p class="control has-icons-right">
+              <input id="cityInput" class="input" type="text" placeholder="City, ex. Toronto"/>
+              <span class="icon is-small is-right">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-right">
+              <input id="countryInput" class="input" type="text" placeholder="Country, ex. Canada" />
+              <span class="icon is-small is-right">
+                <i class="fa-solid fa-flag"></i>
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section py-1">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fa-solid fa-gears"></i>
+          </span>
+          <span class="pl-1">General Settings:</span>
+        </span>
+        <div class="field ml-5 py-5">
+          <div class="columns is-flex-direction-column">
+            <div class="column">
+              <label class="switch is-rounded">
+                <input type="checkbox" value="false" checked="" id="notifications">
+                <span class="check"></span>
+                <span class="control-label px-4">System Notifications</span>
+              </label>
+            </div>
+            <div class="column">
+              <label class="switch is-rounded">
+                <input type="checkbox" value="false" checked="" id="">
+                <span class="check"></span>
+                <span class="control-label px-4">Notifications</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <section class="section py-1">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fa-solid fa-gears"></i>
+          </span>
+          <span class="pl-1">Startup Settings:</span>
+        </span>
+        <div class="field ml-5 py-5">
+          <div class="columns is-flex-direction-column">
+            <div class="column">
+              <label class="b-checkbox checkbox">
+                <input type="checkbox" value="false" checked="" id="startUp">
+                <span class="check"></span>
+                <span class="control-label">Run on startup</span>
+              </label>
+            </div>
+            <div class="column">
+              <label class="b-checkbox checkbox">
+                <input type="checkbox" value="false" checked="" id="updates">
+                <span class="check"></span>
+                <span class="control-label">Check for Updates</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section py-1">
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fa-solid fa-gears"></i>
+          </span>
+          <span class="pl-1">Other Settings:</span>
+        </span>
+        <div class="columns is-flex-direction-row py-5 ml-5" style="max-width: 80px;">
+          <div class="column pr-3">
+            <span class="has-text-weight-semibold">Theme:</span>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="b-radio radio">
+                <input id="dark" type="radio" name="group_2">
+                <span class="check"></span>
+                <span class="control-label">Dark</span>
+              </label>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="b-radio radio">
+                <input id="light" type="radio" name="group_2">
+                <span class="check"></span>
+                <span class="control-label">Light</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="renderSet.js"></script>
+  </body>
+</html>

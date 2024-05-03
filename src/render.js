@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+
         const response = await fetch('https://ipapi.co/json/');
         const data = await response.json();
         document.getElementById('location').textContent = `${data.city}, ${data.region}`;
@@ -105,6 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
         }
         
+
         // Initial call to update the timer
         updateTimer();
         
@@ -116,6 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('location').textContent = 'Unknown location';
         console.error('Error fetching data:', error);
     }
+
 });
 
 
