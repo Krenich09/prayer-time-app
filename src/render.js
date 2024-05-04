@@ -1,11 +1,44 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        let boolDark = localStorage.getItem('dark') === 'true';
+        let savedAuto = localStorage.getItem('auto') === 'true';
 
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        document.getElementById('location').textContent = `${data.city}, ${data.region}`;
+        const htmlElement = document.querySelector('html');
 
-        const link = `http://api.aladhan.com/v1/timingsByCity?city=${data.city}&country=${data.country_name}&method=4&adjustment=1`
+        
+        // Add or remove the appropriate class based on the isDark boolean
+        if (boolDark) {
+            htmlElement.classList.add('theme-dark');
+        } else {
+            htmlElement.classList.add('theme-light');
+        }
+
+        let city = '';
+        let country = '';
+        
+        if(savedAuto)
+        {
+            const response = await fetch('https://ipapi.co/json/');
+            const data = await response.json();
+            city = data.city;
+            country = data.country_name;
+        }
+        else
+        {
+            city = localStorage.getItem('city');
+            country = localStorage.getItem('country');
+        }
+        if(city === '' || country === '')
+        {  
+            document.getElementById('location').textContent = 'Unknown location';
+        }
+        else
+        {
+            document.getElementById('location').textContent = `${city}, ${country}`;
+
+        }
+        const link = `http://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4&adjustment=1`;
+
         console.log(link);
         const response2 = await fetch(link);
         const data2 = await response2.json();

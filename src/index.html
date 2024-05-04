@@ -7,14 +7,14 @@
     <title>Prayer Time</title>
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="C:\Users\User\Documents\GitHub\PrayerApp\prayerapp\node_modules\@creativebulma\bulma-divider\dist\bulma-divider.min.css">
+
     <script src="https://kit.fontawesome.com/9abe29d3f9.js" crossorigin="anonymous"></script>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
-
-
   </head>
   <body>
     <div class="tabs is-centered">
@@ -38,78 +38,103 @@
     </div>
 
     <div id="holder" style="display: none;">
-      <section class="section py-1">
+      <section class="section pt-4 pb-0 is-half">
         <div class="columns">
           <div class="column">
-            <span class="icon-text has-text-info">
-              <span class="icon">
-                <i class="fas fa-map-marker-alt"></i>
+            <div class="is-info has-text-centered has-text-weight-bold" >
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </span>
+                <span id="location">Info</span>
+                <span id="curTimer">Info</span>
               </span>
-              <span id="location">Info</span>
-              <span id="curTimer">Info</span>
-            </span>
+            </div>
           </div>
         </div>
   
       </section>
       <section class="section">
-        <div class="container has-background-primary-dark p-6 box is-shadowless " style="min-height: 190px;">
+        <div class="container notification p-6  is-shadowless " style="min-height: 190px;">
           <div class="columns">
-            <div class="column is-6 has-text-primary-65">
+            <div class="column is-6 ">
 
               <span id="arabicName" class="has-text-left is-size-4 amiri-quran-regular has-text-weight-semibold"></span>
 
-              <h2 id="timer" class="subtitle has-text-primary-40">
+              <h2 id="timer" class="subtitle">
                 Countdown: [00:00]
             </div>
             
             <div class="column is-6">
-              <p class="has-text-primary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus modi aspernatur atque. Dolore accusamus, corporis qui in, ad labore odio praesentium suscipit hic nihil possimus ipsam iste ut! Repellendus, soluta.</p>
+              <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus modi aspernatur atque. Dolore accusamus, corporis qui in, ad labore odio praesentium suscipit hic nihil possimus ipsam iste ut! Repellendus, soluta.</p>
               
             </div>
           </div>
         </div>
       </section>
+
+      <div class="container">
+        <div class="is-primary">
+
+          <div class="divider">
+            <span class="icon is-large">
+              <i class="fa-solid fa-angle-down"></i>
+            </span>
+          </div>
+        </div>
+      </div>   
+
       <section id="cards" class="section">
         <div class="container">
           <div class="collumns">
             <div class="column">
-              <div class="card">
-                <div class="card-content">
-                  <p class="title is-primary">Fajr</p>
-                  <p id="fajr" class="subtitle ">Time: [00:00]</p>
+              <div class="card py-0 px-0 mx-0 my-0 is-shadowless">
+                <div class="card-content px-0 py-0">
+                  <div class="notification">
+                    <p class="title is-primary">Fajr</p>
+                    <p id="fajr" class="subtitle ">Time: [00:00]</p>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
-              <div class="card">
-                <div class="card-content">
-                  <p class="title">Duhr</p>
-                  <p id="dhuhr" class="subtitle">Time: [00:00]</p>
+              <div class="card py-0 px-0 mx-0 my-0 is-shadowless">
+                <div class="card-content px-0 py-0">
+                  <div class="notification">
+                    <p class="title">Duhr</p>
+                    <p id="dhuhr" class="subtitle">Time: [00:00]</p>
+
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
-              <div class="card">
-                <div class="card-content">
-                  <p class="title">Asr</p>
-                  <p id="asr" class="subtitle">Time: [00:00]</p>
+              <div class="card py-0 px-0 mx-0 my-0 is-shadowless">
+                <div class="card-content px-0 py-0">
+                  <div class="notification">
+                    <p class="title">Asr</p>
+                    <p id="asr" class="subtitle">Time: [00:00]</p>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
-              <div class="card">
-                <div class="card-content">
-                  <p class="title">Maghreb</p>
-                  <p id="maghrib" class="subtitle">Time: [00:00]</p>
+              <div class="card py-0 px-0 mx-0 my-0 is-shadowless">
+                <div class="card-content px-0 py-0">
+                  <div class="notification">
+                    <p class="title">Maghreb</p>
+                    <p id="maghrib" class="subtitle">Time: [00:00]</p>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="column">
-              <div class="card">
-                <div class="card-content">
-                  <p class="title">Isha</p>
-                  <p id="isha" class="subtitle">Time: [00:00]</p>
+              <div class="card py-0 px-0 mx-0 my-0 is-shadowless">
+                <div class="card-content px-0 py-0">
+                  <div class="notification">
+                    <p class="title">Isha</p>
+                    <p id="isha" class="subtitle">Time: [00:00]</p>
+                  </div>
                 </div>
               </div>
             </div>

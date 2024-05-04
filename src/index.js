@@ -1,6 +1,11 @@
-const { app, BrowserWindow, Tray, Menu, nativeImage} = require('electron');
+const { app, BrowserWindow, Tray, Menu, nativeImage, ipcMain} = require('electron');
 const path = require('node:path');
+const AutoLaunch = require('auto-launch');
 
+// Initialize AutoLaunch instance
+const appAutoLauncher = new AutoLaunch({
+    name: 'prayerapp', // Replace with your actual app name
+});
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -98,6 +103,7 @@ const createWindow = async () => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow();
+  // Enable auto-launch by default (if not already enabled) only the first time
 
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
@@ -107,4 +113,16 @@ app.whenReady().then(() => {
     }
   });
   
+});
+
+// Listen for 'startUpChanged' event from the renderer process
+ipcMain.on('startUpChanged', (event, startUp) => {
+  if (startUp) {
+      appAutoLauncher.enable();
+  } else {
+      appAutoLauncher.disable();
+  }
+
+  // Optionally, you can send a response back to the renderer process
+  // event.sender.send('autoLaunchUpdated', startUp);
 });
