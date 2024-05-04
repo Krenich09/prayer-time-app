@@ -1,3 +1,6 @@
+const { ipcRenderer } = require('electron');
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         let boolDark = localStorage.getItem('dark') === 'true';
@@ -28,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             city = localStorage.getItem('city');
             country = localStorage.getItem('country');
         }
+
         if(city === '' || country === '')
         {  
             document.getElementById('location').textContent = 'Unknown location';
@@ -42,26 +46,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log(link);
         const response2 = await fetch(link);
         const data2 = await response2.json();
+
         const fajr = data2.data.timings.Fajr;
         const dhuhr = data2.data.timings.Dhuhr;
         const asr = data2.data.timings.Asr;
         const maghrib = data2.data.timings.Maghrib;
         const isha = data2.data.timings.Isha;
 
+        // Save to localStorage
+        localStorage.setItem('fajr', fajr);
+        localStorage.setItem('dhuhr', dhuhr);
+        localStorage.setItem('asr', asr);
+        localStorage.setItem('maghrib', maghrib);
+        localStorage.setItem('isha', isha);
+
         document.getElementById('fajr').textContent = `[${fajr}]`;
         document.getElementById('dhuhr').textContent = `[${dhuhr}]`;
         document.getElementById('asr').textContent = `[${asr}]`;
         document.getElementById('maghrib').textContent = `[${maghrib}]`;
         document.getElementById('isha').textContent = `[${isha}]`;
-
-        const now = new Date();
-        const hours = now.getHours();
-        const minutes = now.getMinutes()
-
-        
-    
-
-        
+                
         function updateCurTimer() {
             const now = new Date();
             const hours = now.getHours().toString().padStart(2, '0');
@@ -110,7 +114,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     nextPrayerIndex = i;
                 }
             }
-            
             return nextPrayerIndex;
         }
         
@@ -145,6 +148,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         // Update the timer every second
         document.getElementById('holder').style.display = 'block';
+
+        ipcRenderer.send('locationChanged');
         setInterval(updateTimer, 1000);
         
     } catch (error) {

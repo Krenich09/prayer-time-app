@@ -1,2 +1,2 @@
-- Next prayer after Isha Bug
-- Tray not updating when switching to manual
+- Next prayer after Isha Bug // FAILED TO RECREATE
+- Tray not updating when switching to manual // FIXED
