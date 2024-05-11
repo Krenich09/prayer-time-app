@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer} = require('electron');
 
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -117,6 +117,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             return nextPrayerIndex;
         }
         
+        
+        let nextPrayer = findNextPrayer();
+        ipcRenderer.send('nextPrayer',  prayerTimes[nextPrayer], ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'][nextPrayer]);
+        updateTimer();
         // Function to update the timer with countdown to the next prayer
         function updateTimer() {
             const now = new Date();
@@ -131,21 +135,36 @@ document.addEventListener('DOMContentLoaded', async () => {
             nextPrayerDate.setHours(nextPrayerHour, nextPrayerMinute, 0);
             
             let timeDifference = nextPrayerDate - now;
+            
             if (timeDifference < 0) {
                 timeDifference += 24 * 60 * 60 * 1000; // Add 24 hours if the next prayer time is before the current time
             }
+            else
+            {
+                const hours = Math.floor(timeDifference / (1000 * 60 * 60)).toString().padStart(2, '0');
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
+                
+                document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
+            }
             
-            const hours = Math.floor(timeDifference / (1000 * 60 * 60)).toString().padStart(2, '0');
-            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
-            
-            document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
-        }
-        
 
-        // Initial call to update the timer
-        updateTimer();
-        
+
+            if(nextPrayer != null)
+            {
+                if(nextPrayerIndex != nextPrayer)
+                {
+                    console.log('Prayer changed');
+                    ipcRenderer.send('nextPrayer',  prayerTimes[nextPrayerIndex], ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'][nextPrayerIndex]);
+                    nextPrayer = nextPrayerIndex;
+                }
+                else
+                {
+                    console.log('Prayer not changed');
+                }
+            }
+        }
+
         // Update the timer every second
         document.getElementById('holder').style.display = 'block';
 

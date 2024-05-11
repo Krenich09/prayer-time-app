@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }   
     if(localStorage.getItem('startUp') === null)
     {
-        localStorage.setItem('startUp', false);
+        localStorage.setItem('startUp', true);
     }
     if(localStorage.getItem('updates') === null)
     {
