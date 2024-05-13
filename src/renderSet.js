@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if(localStorage.getItem('notifications') === null)
     {
         localStorage.setItem('notifications', true);
+    }
+    if(localStorage.getItem('adhan') === null)
+    {
+        localStorage.setItem('adhan', false);
     }   
     if(localStorage.getItem('startUp') === null)
     {
@@ -35,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let savedCountry = localStorage.getItem('country');
 
     let savedNotifications = localStorage.getItem('notifications') === 'true';
-    
+    let savedAdhan = localStorage.getItem('adhan') === 'true';
 
     let savedStartUp = localStorage.getItem('startUp') === 'true';
     let savedUpdates = localStorage.getItem('updates') === 'true';
@@ -50,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let countryInput = document.getElementById('countryInput');
 
         let notificationCheck = document.getElementById('notifications');
+        let adhanCheck = document.getElementById('adhan');
 
         let startUpCheck = document.getElementById('startUp');
         let updatesCheck = document.getElementById('updates');
@@ -74,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         countryInput.disabled = isAuto;
 
         notificationCheck.checked = savedNotifications;
+        adhanCheck.checked = savedAdhan;
         startUpCheck.checked = savedStartUp;
         updatesCheck.checked = savedUpdates;
 
@@ -124,9 +130,13 @@ document.addEventListener('DOMContentLoaded', () => {
         notificationCheck.addEventListener('change', () => {
             localStorage.setItem('notifications', notificationCheck.checked);
         });
+        adhanCheck.addEventListener('change', () => {
+            localStorage.setItem('adhan', adhanCheck.checked);
+        });
 
         startUpCheck.addEventListener('change', () => {
             let startUp = startUpCheck.checked;
+
             localStorage.setItem('startUp', startUp);
             ipcRenderer.send('startUpChanged', startUp)
         });

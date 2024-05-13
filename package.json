@@ -10,7 +10,8 @@
   "author": "Kren1ch",
   "license": "MIT",
   "dependencies": {
-    "auto-launch": "^5.0.6"
+    "auto-launch": "^5.0.6",
+    "sound-play": "^1.1.0"
   },
   "build": {
     "appId": "com.kren1ch.app",

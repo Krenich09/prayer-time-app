@@ -3,6 +3,7 @@ const path = require('node:path');
 const nativeImage = require('electron').nativeImage;
 
 var AutoLaunch = require('auto-launch');
+const { start } = require('node:repl');
 var appAutoLauncher = new AutoLaunch({
     name: "PrayerApp Times",
     path: process.execPath,
@@ -17,6 +18,7 @@ const getAssetPath = (...paths) => {
 let tray = null;
 let isAppQuitting = false;
 let mainWindow = null;
+let audioWindow = null;
 
 // Ensure single instance of the app
 const gotTheLock = app.requestSingleInstanceLock();
@@ -31,7 +33,20 @@ if (!gotTheLock) {
     });
 }
 
+function createHiddenWindow() {
+    hiddenWindow = new BrowserWindow({
+        width: 500,
+        height: 600,
+        show: false, // Hide the window initially
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
 
+        }
+    });
+
+    hiddenWindow.loadFile('./src/audio.html');
+}
 const createWindow = () => {
     mainWindow = new BrowserWindow({
         show: false,
@@ -81,6 +96,7 @@ app.on('ready', () => {
 
     
     createWindow();
+    createHiddenWindow();
 });
 
 let nextTime = "";
@@ -105,6 +121,10 @@ function checkTime()
             {
                 newNotification("Prayer Time", `It's time to pray ${nextPrayerName}!`);
             }
+
+            
+            playAdhan();
+
             console.log("Time to pray");
             canDoNotification = false;
         }
@@ -120,6 +140,31 @@ app.on('activate', () => {
 });
 
 
+function playAdhan()
+{
+    
+    let doAdhan = false;
+    mainWindow.webContents.executeJavaScript('localStorage.getItem("adhan");', true).then(result => {
+        if(result === 'false' || result === false)
+        {
+            doAdhan = false;
+        }
+        else if(result === 'true' || result === true)
+        {
+            doAdhan = true;
+        }
+    });
+    
+    setTimeout(() => {
+        if(doAdhan == true)
+        {
+            hiddenWindow.webContents.send('playSound', getAssetPath('algerian_adhan.mp3'));
+        }
+    }, 1000);
+
+}
+
+
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit();
 });
@@ -132,13 +177,7 @@ ipcMain.on('nextPrayer', (event, time, name) => {
 });
 
 ipcMain.on('startUpChanged', (event, startUp) => {
-    if (startUp) {
-        appAutoLauncher.enable();
-    } else {
-        appAutoLauncher.disable();
-    }    
-
-    newNotification("StartUp Changed", `StartUp is now ${startUp}`);
+    startUp ? appAutoLauncher.enable() : appAutoLauncher.disable();
 });
 
 function newNotification(title, body)
@@ -159,11 +198,18 @@ function newNotification(title, body)
     function show()
     {
         if(canShow == false) return;
-        new Notification({
+        let noti = new Notification({
             title: title,
             body: body,
             icon: getAssetPath('icon.png'),
-        }).show()
+        });
+        noti.show();
+
+        noti.on('click', (event, arg)=>{
+            hiddenWindow.webContents.send('stopSound');
+            console.log("clicked")
+        });
+
         console.log("Notification sent");
     }        
 }
@@ -197,7 +243,7 @@ ipcMain.on('locationChanged', (event) => {
       
     function createTray()
     {
-      
+        
         let image = nativeImage.createFromPath(getAssetPath('icon.ico'));
         
         let new_tray = new Tray(image);
@@ -221,6 +267,12 @@ ipcMain.on('locationChanged', (event) => {
                 click: () => {
                     mainWindow.show();
                 },
+            },
+            {   
+                label: 'Stop Adhan (if playing)',
+                click: () => {
+                    hiddenWindow.webContents.send('stopSound');
+                }
             },
             {   label: 'Exit', type: 'normal', click: () => { 
                 isAppQuitting = true;

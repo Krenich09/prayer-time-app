@@ -1,4 +1,5 @@
 - Next prayer after Isha Bug // FAILED TO RECREATE
 - Tray not updating when switching to manual // FIXED
 - Tray Icon Fails // FIXED
-- NEED Add notifications for prayer Time
+- NEED Add notifications for prayer Time // FIXED
+- BUG after isha with counter being 00:00
