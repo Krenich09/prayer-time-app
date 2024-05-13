@@ -47,11 +47,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         const response2 = await fetch(link);
         const data2 = await response2.json();
 
-        const fajr = data2.data.timings.Fajr;
-        const dhuhr = data2.data.timings.Dhuhr;
-        const asr = data2.data.timings.Asr;
-        const maghrib = data2.data.timings.Maghrib;
-        const isha = data2.data.timings.Isha;
+        const timings = data2.data.timings;
+        const fajr = timings.Fajr;
+        const dhuhr = timings.Dhuhr;
+        const asr = timings.Asr;
+        const maghrib = timings.Maghrib;
+        const isha = timings.Isha;
 
         // Save to localStorage
         localStorage.setItem('fajr', fajr);
@@ -133,20 +134,29 @@ document.addEventListener('DOMContentLoaded', async () => {
             const [nextPrayerHour, nextPrayerMinute] = nextPrayerTime.split(':').map(Number);
             const nextPrayerDate = new Date();
             nextPrayerDate.setHours(nextPrayerHour, nextPrayerMinute, 0);
-            
+
+                
+            if(nextPrayerIndex == 0)
+            {
+                nextPrayerDate.setDate(now.getDate() + 1); // Add 1 day if the next prayer is Fajr
+            }
+                
             let timeDifference = nextPrayerDate - now;
+
+            const hours = Math.floor(timeDifference / (1000 * 60 * 60)).toString().padStart(2, '0');
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
             
-            if (timeDifference < 0) {
-                timeDifference += 24 * 60 * 60 * 1000; // Add 24 hours if the next prayer time is before the current time
+            if(timeDifference < 0)
+            {
+                document.getElementById('timer').textContent = `Time to Pray!`;
             }
             else
             {
-                const hours = Math.floor(timeDifference / (1000 * 60 * 60)).toString().padStart(2, '0');
-                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
-                
+                console.log('Time difference:', hours, minutes, seconds);
                 document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
             }
+
             
 
 
