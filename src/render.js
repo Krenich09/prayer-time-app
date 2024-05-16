@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         const link = `http://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4&adjustment=1`;
 
-        console.log(link);
         const response2 = await fetch(link);
         const data2 = await response2.json();
 
@@ -153,7 +152,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             else
             {
-                console.log('Time difference:', hours, minutes, seconds);
                 document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
             }
 
@@ -164,13 +162,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             {
                 if(nextPrayerIndex != nextPrayer)
                 {
-                    console.log('Prayer changed');
                     ipcRenderer.send('nextPrayer',  prayerTimes[nextPrayerIndex], ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'][nextPrayerIndex]);
                     nextPrayer = nextPrayerIndex;
-                }
-                else
-                {
-                    console.log('Prayer not changed');
                 }
             }
         }

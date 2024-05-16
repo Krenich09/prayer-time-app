@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             localStorage.setItem('auto', true);
             isAuto = true;
-            console.log(isAuto);
         });
 
         manualRadio.addEventListener('change', () => {
@@ -116,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             localStorage.setItem('auto', false);
             isAuto = false;
-            console.log(isAuto);
         });
 
         cityInput.addEventListener('input', () => {

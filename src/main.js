@@ -47,6 +47,7 @@ function createHiddenWindow() {
 
     hiddenWindow.loadFile('./src/audio.html');
 }
+
 const createWindow = () => {
     mainWindow = new BrowserWindow({
         show: false,
@@ -58,9 +59,11 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
+            devTools: true  ,
         },
     });
 
+    mainWindow.setMenuBarVisibility(false);
     mainWindow.loadFile('./src/index.html');
     isAppQuitting = false;
     mainWindow.on('ready-to-show', () => {
@@ -290,3 +293,4 @@ ipcMain.on('locationChanged', (event) => {
     }
     setTimeout(createTray, 1000);
 });
+
