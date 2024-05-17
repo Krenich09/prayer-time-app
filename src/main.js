@@ -1,11 +1,15 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu, Notification } = require('electron');
 const path = require('node:path');
 const nativeImage = require('electron').nativeImage;
-
+const fs = require('fs');
 var AutoLaunch = require('auto-launch');
 const { start } = require('node:repl');
+const { autoUpdater } = require("electron-updater")
+require('dotenv').config()
+
+
 var appAutoLauncher = new AutoLaunch({
-    name: "PrayerApp Times",
+    name: "PrayerTimes",
     path: process.execPath,
     isHidden: true,
 });
@@ -18,7 +22,6 @@ const getAssetPath = (...paths) => {
 let tray = null;
 let isAppQuitting = false;
 let mainWindow = null;
-let audioWindow = null;
 
 // Ensure single instance of the app
 const gotTheLock = app.requestSingleInstanceLock();
@@ -69,28 +72,29 @@ const createWindow = () => {
     mainWindow.on('ready-to-show', () => {
         mainWindow.show();
     });
-
+    
     mainWindow.on('close', (event) => {
         if (!isAppQuitting) {
             event.preventDefault();
             mainWindow.hide();
         }
     });
-
+    
     mainWindow.webContents.executeJavaScript('localStorage.getItem("startUp1");', true).then(result => {
         if(result === null || result === undefined)
-        {
-            appAutoLauncher.enable();
-            mainWindow.webContents.executeJavaScript('localStorage.setItem("startUp1", true);', true);
-            console.log("startUp is null, so is enabled");
-        }
-    });
-};
-
+            {
+                appAutoLauncher.enable();
+                mainWindow.webContents.executeJavaScript('localStorage.setItem("startUp1", true);', true);
+                console.log("startUp is null, so is enabled");
+            }
+        });
+    };
+    
 app.on('ready', () => {
+    autoUpdater.checkForUpdatesAndNotify();
     
     if (process.platform === 'win32') {      
-        app.setAppUserModelId("com.kren1ch.app")
+        app.setAppUserModelId("com.kren1ch.prayertimes")
     }
 
 
@@ -101,6 +105,27 @@ app.on('ready', () => {
     createWindow();
     createHiddenWindow();
 });
+
+
+
+autoUpdater.on('update-available', () => {
+    dialog.showMessageBox({
+      type: 'info',
+      title: 'Update available',
+      message: 'A new update is available. Downloading now...',
+      buttons: ['OK']
+    });
+});
+autoUpdater.on('update-downloaded', () => {
+    dialog.showMessageBox({
+      type: 'info',
+      title: 'Update ready',
+      message: 'Install and restart app now?',
+      buttons: ['Yes', 'Later']
+    }).then(result => {
+      if (result.response === 0) autoUpdater.quitAndInstall();
+    });
+  });
 
 let nextTime = "";
 let nextPrayerName = "";
@@ -247,9 +272,9 @@ ipcMain.on('locationChanged', (event) => {
     function createTray()
     {
         
-        let image = nativeImage.createFromPath(getAssetPath('icon.ico'));
-        
-        let new_tray = new Tray(image);
+        let image = nativeImage.createFromPath(getAssetPath('empty_icon.png'));
+        let tray_icon = nativeImage.createFromPath(getAssetPath('tray.ico'));
+        let new_tray = new Tray(tray_icon);
         var now = new Date();
         let string = now.toDateString();
         let contextMenu2 = Menu.buildFromTemplate([
@@ -284,7 +309,7 @@ ipcMain.on('locationChanged', (event) => {
         ])
         
         new_tray.setContextMenu(contextMenu2)
-        new_tray.setToolTip('Prayer App Times')
+        new_tray.setToolTip('PrayerTimes')
         new_tray.on('click', () => {
             mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
         });
@@ -301,4 +326,22 @@ ipcMain.on('openDiscord', (event) => {
 
 ipcMain.on('openGithub', (event) => {
     require('electron').shell.openExternal('https://github.com/Krenich09');
+});
+
+ipcMain.handle('get-QoD', async (event) => {
+    try
+    {
+        let filePath = getAssetPath('quotes.txt');
+        const data = await fs.readFileSync(filePath, 'utf8');
+        const lines = data.split('\n');
+    
+        let line = lines[Math.floor(Math.random() * lines.length)];
+        return line
+    }
+    catch(err)
+    {
+        console.error(err);
+        return "Error: Could not get QoD";
+    }
+
 });

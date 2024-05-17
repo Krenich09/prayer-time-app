@@ -1,6 +1,6 @@
 [In Development]
 
-App name: *still thinking of one.*
+App name: PrayerTimes
 
 **Soon to be Available on the Microsoft Store.**
 

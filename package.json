@@ -1,27 +1,37 @@
 {
   "name": "prayer_app",
   "version": "1.0.0",
-  "description": "A simple prayer app for muslims",
+  "description": "A simple Prayer Times app for Muslims",
   "main": "src/main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "package": "electron-builder -p always"
   },
-  "author": "Kren1ch",
   "license": "MIT",
   "dependencies": {
     "@treverix/custom-electron-titlebar": "^4.2.0",
     "auto-launch": "^5.0.6",
+    "electron-updater": "^6.1.8",
     "sound-play": "^1.1.0"
   },
   "build": {
-    "appId": "com.kren1ch.app",
-    "productName": "Prayer App",
+    "appId": "com.kren1ch.prayertimes",
+    "productName": "PrayerTimes",
     "icon": "./assets/icon.png",
     "extraResources": [
       {
         "from": "assets",
         "to": "assets"
+      }
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Krenich09",
+        "repo": "prayer-time-app",
+        "releaseType": "draft",
+        "private": false
       }
     ],
     "target": "NSIS",
@@ -41,7 +51,17 @@
       "createStartMenuShortcut": true
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krenich09/prayer-time-app.git"
+  },
+  "author": {
+    "name": "Kren1ch",
+    "email": "krenichraid@gmail.com",
+    "url": "https://github.com/Krenich09/prayer-time-app"
+  },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "electron": "30.0.2",
     "electron-builder": "^24.13.3"
   }

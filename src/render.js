@@ -16,12 +16,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         let ishaCard = document.getElementById('ishaCard');
 
         let cards = [fajrCard, duhrCard, asrCard, maghribCard, ishaCard];
-        let filePath = 'resources/assets/quotes.txt';
-        const data = fs.readFileSync(filePath, 'utf8');
-        const lines = data.split('\n');
 
-        let line = lines[Math.floor(Math.random() * lines.length)];
-        textOfDay.textContent = line;
+        async function getQOD() {
+            const result = await ipcRenderer.invoke('get-QoD');
+            textOfDay.textContent = result;     
+        }
+        
+        getQOD();
+       
 
         // Add or remove the appropriate class based on the isDark boolean
         if (boolDark) {
