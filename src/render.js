@@ -1,19 +1,36 @@
 const { ipcRenderer} = require('electron');
+const fs = require('fs');
 
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         let boolDark = localStorage.getItem('dark') === 'true';
         let savedAuto = localStorage.getItem('auto') === 'true';
-
+        let textOfDay = document.getElementById('textOfDay');
         const htmlElement = document.querySelector('html');
-
         
+        let fajrCard = document.getElementById('fajrCard');
+        let duhrCard = document.getElementById('duhrCard');
+        let asrCard = document.getElementById('asrCard');
+        let maghribCard = document.getElementById('maghribCard');
+        let ishaCard = document.getElementById('ishaCard');
+
+        let cards = [fajrCard, duhrCard, asrCard, maghribCard, ishaCard];
+        let filePath = 'resources/assets/quotes.txt';
+        const data = fs.readFileSync(filePath, 'utf8');
+        const lines = data.split('\n');
+
+        let line = lines[Math.floor(Math.random() * lines.length)];
+        textOfDay.textContent = line;
+
         // Add or remove the appropriate class based on the isDark boolean
         if (boolDark) {
             htmlElement.classList.add('theme-dark');
+            
+            
         } else {
             htmlElement.classList.add('theme-light');
+
         }
 
         let city = '';
@@ -125,6 +142,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         function updateTimer() {
             const now = new Date();
             const nextPrayerIndex = findNextPrayer();
+            
+            for (let i = 0; i < cards.length; i++) {
+                if(i == nextPrayerIndex)
+                {
+                    boolDark ? cards[i].classList.add('has-background-primary-dark') : cards[i].classList.add('has-background-primary-light');
+                }
+                else
+                {
+                    cards[i].classList.remove('has-background-primary-dark');
+                    cards[i].classList.remove('has-background-primary-light');
+                }
+            }
             const nextPrayerTime = prayerTimes[nextPrayerIndex];
             
             const nextPrayerName = ['[Fajr - الفجر]', '[Dhuhr - الظهر]', '[Asr - العصر]', '[Maghrib - المغرب]', '[Isha - العشاء]'][nextPrayerIndex];
@@ -164,6 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 {
                     ipcRenderer.send('nextPrayer',  prayerTimes[nextPrayerIndex], ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'][nextPrayerIndex]);
                     nextPrayer = nextPrayerIndex;
+                    
                 }
             }
         }

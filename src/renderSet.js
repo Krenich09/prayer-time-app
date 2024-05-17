@@ -64,7 +64,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const htmlElement = document.querySelector('html');
 
+        let discordBtb = document.getElementById('discord');
+        let githubBtn = document.getElementById('github');
         
+        discordBtb.addEventListener('click', () => {
+            ipcRenderer.send('openDiscord');
+        });
+        githubBtn.addEventListener('click', () => {
+            ipcRenderer.send('openGithub');
+        });
+
         // Add or remove the appropriate class based on the isDark boolean
         if (savedDark) {
             htmlElement.classList.add('theme-dark');

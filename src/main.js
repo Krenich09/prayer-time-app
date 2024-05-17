@@ -294,3 +294,11 @@ ipcMain.on('locationChanged', (event) => {
     setTimeout(createTray, 1000);
 });
 
+
+ipcMain.on('openDiscord', (event) => {
+    require('electron').shell.openExternal('https://discord.gg/hNGv75WmYA');
+});
+
+ipcMain.on('openGithub', (event) => {
+    require('electron').shell.openExternal('https://github.com/Krenich09');
+});
