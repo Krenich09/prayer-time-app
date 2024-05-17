@@ -5,15 +5,21 @@ const fs = require('fs');
 var AutoLaunch = require('auto-launch');
 const { start } = require('node:repl');
 const { autoUpdater } = require("electron-updater")
-require('dotenv').config()
 
+const log = require('electron-log');
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
 
 var appAutoLauncher = new AutoLaunch({
     name: "PrayerTimes",
     path: process.execPath,
     isHidden: true,
 });
-
+function sendStatusToWindow(text) {
+    log.info(text);
+    mainWindow.webContents.send('message', text);
+}
 const RESOURCES_PATH = app.isPackaged ? path.join(process.resourcesPath, 'assets') : path.join(__dirname, '../assets');
 const getAssetPath = (...paths) => {
     return path.join(RESOURCES_PATH, ...paths);
@@ -62,7 +68,7 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            devTools: true  ,
+            devTools: false  ,
         },
     });
 
@@ -91,41 +97,40 @@ const createWindow = () => {
     };
     
 app.on('ready', () => {
-    autoUpdater.checkForUpdatesAndNotify();
     
     if (process.platform === 'win32') {      
         app.setAppUserModelId("com.kren1ch.prayertimes")
-    }
-
-
-    
-    setInterval(checkTime, 5000);
-
-    
+    } 
+    setInterval(checkTime, 5000);  
     createWindow();
     createHiddenWindow();
 });
 
-
-
-autoUpdater.on('update-available', () => {
-    dialog.showMessageBox({
-      type: 'info',
-      title: 'Update available',
-      message: 'A new update is available. Downloading now...',
-      buttons: ['OK']
-    });
+app.on('ready', function()  {
+    autoUpdater.checkForUpdatesAndNotify();
 });
-autoUpdater.on('update-downloaded', () => {
-    dialog.showMessageBox({
-      type: 'info',
-      title: 'Update ready',
-      message: 'Install and restart app now?',
-      buttons: ['Yes', 'Later']
-    }).then(result => {
-      if (result.response === 0) autoUpdater.quitAndInstall();
-    });
-  });
+
+autoUpdater.on('checking-for-update', () => {
+    sendStatusToWindow('Checking for update...');
+})
+autoUpdater.on('update-available', (info) => {
+sendStatusToWindow('Update available.');
+})
+autoUpdater.on('update-not-available', (info) => {
+sendStatusToWindow('Update not available.');
+})
+autoUpdater.on('error', (err) => {
+sendStatusToWindow('Error in auto-updater. ' + err);
+})
+autoUpdater.on('download-progress', (progressObj) => {
+let log_message = "Download speed: " + progressObj.bytesPerSecond;
+log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+sendStatusToWindow(log_message);
+})
+autoUpdater.on('update-downloaded', (info) => {
+sendStatusToWindow('Update downloaded');
+});
 
 let nextTime = "";
 let nextPrayerName = "";
