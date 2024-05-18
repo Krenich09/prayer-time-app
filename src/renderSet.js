@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if(localStorage.getItem('adhan') === null)
     {
-        localStorage.setItem('adhan', false);
+        localStorage.setItem('adhan', true);
     }   
     if(localStorage.getItem('startUp') === null)
     {

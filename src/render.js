@@ -1,9 +1,42 @@
 const { ipcRenderer} = require('electron');
-const fs = require('fs');
 
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+
+        if (localStorage.getItem('auto') === null) {
+            localStorage.setItem('auto', true);
+        }
+        if(localStorage.getItem('city') === null)
+        {
+            localStorage.setItem('city', '');
+        }
+        if(localStorage.getItem('country') === null)
+        {
+            localStorage.setItem('country', '');
+        }
+        if(localStorage.getItem('notifications') === null)
+        {
+            localStorage.setItem('notifications', true);
+        }
+        if(localStorage.getItem('adhan') === null)
+        {
+            localStorage.setItem('adhan', true);
+        }   
+        if(localStorage.getItem('startUp') === null)
+        {
+            localStorage.setItem('startUp', true);
+        }
+        if(localStorage.getItem('updates') === null)
+        {
+            localStorage.setItem('updates', true);
+        }
+        if(localStorage.getItem('dark') === null)
+        {
+            localStorage.setItem('dark', true);
+        }
+
+
         let boolDark = localStorage.getItem('dark') === 'true';
         let savedAuto = localStorage.getItem('auto') === 'true';
         let textOfDay = document.getElementById('textOfDay');
