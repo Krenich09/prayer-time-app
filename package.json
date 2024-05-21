@@ -1,6 +1,6 @@
 {
   "name": "prayerapp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple Prayer Times app for Muslims",
   "main": "src/main.js",
   "scripts": {
@@ -17,8 +17,8 @@
     "sound-play": "^1.1.0"
   },
   "build": {
-    "appId": "com.kren1ch.prayertimes",
-    "productName": "PrayerTimes",
+    "appId": "com.kren1ch.prayertime",
+    "productName": "PrayerTime",
     "icon": "./assets/icon.png",
     "extraResources": [
       {
