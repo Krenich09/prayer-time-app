@@ -9,7 +9,8 @@ const { autoUpdater } = require("electron-updater")
 const log = require('electron-log');
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
-log.info('App starting...');
+
+const isDev = false;
 
 var appAutoLauncher = new AutoLaunch({
     name: "PrayerTimes",
@@ -68,7 +69,7 @@ const createWindow = () => {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            devTools: false  ,
+            devTools: isDev  ,
         },
     });
 
@@ -76,7 +77,20 @@ const createWindow = () => {
     mainWindow.loadFile('./src/index.html');
     isAppQuitting = false;
     mainWindow.on('ready-to-show', () => {
-        mainWindow.show();
+        if(isDev) {
+            mainWindow.show();
+        }
+        else {
+            mainWindow.webContents.executeJavaScript('localStorage.getItem("isFirstTime");', true).then(result => {
+                if(result === null || result === undefined)
+                {
+                    // First time app launches
+                    mainWindow.show();
+                    mainWindow.webContents.executeJavaScript('localStorage.setItem("isFirstTime", true);', true);
+                    console.log('Is First Time');
+                }
+            });
+        }
     });
     
     mainWindow.on('close', (event) => {

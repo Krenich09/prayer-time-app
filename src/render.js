@@ -235,12 +235,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Update the timer every second
         document.getElementById('holder').style.display = 'block';
+        document.getElementById('beforeText').style.display = 'none';
 
         ipcRenderer.send('locationChanged');
         setInterval(updateTimer, 1000);
         
     } catch (error) {
         document.getElementById('location').textContent = 'Unknown location';
+        document.getElementById('beforeText').style.display = 'flex';
         console.error('Error fetching data:', error);
     }
 

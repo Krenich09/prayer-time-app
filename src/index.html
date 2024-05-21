@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="tabs is-centered">
+    <div class="tabs is-centered mb-0">
       <ul>
         <li class="is-active">
           <a>
@@ -31,11 +31,21 @@
             <span class="icon is-small">
               <i class="fa-solid fa-gear"></i></span>
             <span>Settings</span>
-          </a>
+          </a>  
         </li>
       </ul>
     </div>
-
+    <div id="beforeText" style="display: none; justify-content: center; align-items: center; height: calc(100vh - 41px)">
+      <span class="icon-text is-size-5">
+        <span class="icon">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
+        <span class="pl-1">Error finding location</span>
+        <span class="icon">
+          <i class="fa-solid fa-xmark"></i>
+        </span>
+      </span>
+    </div>
     <div id="holder" style="display: none;">
       <section class="section pt-4 pb-0 is-half">
         <div class="columns">
@@ -53,7 +63,7 @@
         </div>
   
       </section>
-      <section class="section">
+      <section class="section is-loading">
         <div class="container notification p-6  is-shadowless " style="min-height: 190px;">
           <div class="columns">
             <div class="column is-6 ">

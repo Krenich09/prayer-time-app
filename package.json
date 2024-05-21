@@ -1,6 +1,6 @@
 {
-  "name": "prayer_app",
-  "version": "1.0.1",
+  "name": "prayerapp",
+  "version": "1.0.2",
   "description": "A simple Prayer Times app for Muslims",
   "main": "src/main.js",
   "scripts": {
@@ -35,7 +35,9 @@
         "private": false
       }
     ],
-    "target": "NSIS",
+    "win": {
+      "target": "NSIS"
+    },
     "directories": {
       "output": "build"
     },
