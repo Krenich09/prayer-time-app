@@ -7,6 +7,7 @@
     <title>PrayerTime</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-divider@1.1.0/dist/bulma-divider.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-tooltip@3.0.2/dist/css/bulma-tooltip.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/9abe29d3f9.js" crossorigin="anonymous"></script>
 
@@ -47,23 +48,36 @@
       </span>
     </div>
     <div id="holder" style="display: none;">
-      <section class="section pt-4 pb-0 is-half">
-        <div class="columns">
-          <div class="column">
-            <div class="is-info has-text-centered has-text-weight-bold" >
-              <span class="icon-text">
-                <span class="icon">
-                  <i class="fas fa-map-marker-alt"></i>
+
+      <section class="section pb-0">
+        <div class="container notification py-1 px-1 is-shadowless" style="background: none;">
+          <div class="columns">
+            <div class="column has-text-grey">
+              <span id="hijri" class="is-pulled-left has-text-weight-medium" data-tooltip="DD-MM-YYYY">1445-34-34</span>
+            </div>
+            <div class="column">
+              <div class="is-info has-text-centered has-text-weight-bold" >
+                <span class="icon-text has-text-grey">
+                  <span class="icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </span>
+                  <span id="location"></span>
+                  <span id="curTimer"></span>
                 </span>
-                <span id="location">Info</span>
-                <span id="curTimer">Info</span>
+              </div>
+            </div>
+            <div class="column">
+              <span class="icon-text has-text-grey is-pulled-right">
+                <span id="sunrise" class="is-pulled-right has-text-weight-medium">Sunrise: [4:12]</span>
+                <span class="icon">
+                  <i class="fa-solid fa-sun"></i>
+                </span>
               </span>
             </div>
           </div>
         </div>
-  
       </section>
-      <section class="section is-loading">
+      <section class="section py-0">
         <div class="container notification p-6  is-shadowless " style="min-height: 190px;">
           <div class="columns">
             <div class="column is-6 ">

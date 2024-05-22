@@ -3,14 +3,13 @@ const path = require('node:path');
 const nativeImage = require('electron').nativeImage;
 const fs = require('fs');
 var AutoLaunch = require('auto-launch');
-const { start } = require('node:repl');
 const { autoUpdater } = require("electron-updater")
 
 const log = require('electron-log');
 autoUpdater.logger = log;
 autoUpdater.logger.transports.file.level = 'info';
 
-const isDev = false;
+const isDev = true;
 
 var appAutoLauncher = new AutoLaunch({
     name: "PrayerTimes",

@@ -1,6 +1,6 @@
 {
   "name": "prayerapp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple Prayer Times app for Muslims",
   "main": "src/main.js",
   "scripts": {

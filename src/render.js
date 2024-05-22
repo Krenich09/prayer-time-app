@@ -93,17 +93,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('location').textContent = `${city}, ${country}`;
 
         }
-        const link = `http://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=4&adjustment=1`;
+        const link = `http://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=2&adjustment=1`;
 
         const response2 = await fetch(link);
         const data2 = await response2.json();
 
         const timings = data2.data.timings;
         const fajr = timings.Fajr;
+        const sunrise = timings.Sunrise;
         const dhuhr = timings.Dhuhr;
         const asr = timings.Asr;
         const maghrib = timings.Maghrib;
         const isha = timings.Isha;
+
+        const hijri = data2.data.date.hijri.date;
+
+
 
         // Save to localStorage
         localStorage.setItem('fajr', fajr);
@@ -117,6 +122,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('asr').textContent = `[${asr}]`;
         document.getElementById('maghrib').textContent = `[${maghrib}]`;
         document.getElementById('isha').textContent = `[${isha}]`;
+        document.getElementById('hijri').textContent = hijri;
+        document.getElementById('sunrise').textContent = `Sunrise: [${sunrise}]`;
                 
         function updateCurTimer() {
             const now = new Date();
@@ -199,7 +206,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             nextPrayerDate.setHours(nextPrayerHour, nextPrayerMinute, 0);
 
                 
-            if(nextPrayerIndex == 0)
+            if(nextPrayerIndex == 0 && now.getHours() > 12 && now.getHours() < 24)
             {
                 nextPrayerDate.setDate(now.getDate() + 1); // Add 1 day if the next prayer is Fajr
             }

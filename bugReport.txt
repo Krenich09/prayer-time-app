@@ -2,3 +2,4 @@
 - Tray Icon Fails // FIXED
 - NEED Add notifications for prayer Time // FIXED
 - BUG after isha with counter being 00:00 // FIXED
+- RoyExiled's Next prayer time bug. // FIXED
