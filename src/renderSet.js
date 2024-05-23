@@ -43,11 +43,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let savedStartUp = localStorage.getItem('startUp') === 'true';
     let savedUpdates = localStorage.getItem('updates') === 'true';
+    
+    let method = localStorage.getItem('method');
 
     let savedDark = localStorage.getItem('dark') === 'true';
     let isAuto = savedAuto;
 
     try {
+        let methodDropDownBtn = document.getElementById('dropdownBtn');
+        let algeria = document.getElementById('algeria');
+        let egypt = document.getElementById('egypt');
+        let isna = document.getElementById('isna');
+        let jakim = document.getElementById('jakim');
+        let indonesia = document.getElementById('indonesia');
+        let mwl = document.getElementById('mwl');
+        let makkah = document.getElementById('makkah');
+        let karachi = document.getElementById('karachi');
+        
+        let methodDropDown = document.getElementById('methodDrop');
+
         let autoRadio = document.getElementById('auto');
         let manualRadio = document.getElementById('manual');
         let cityInput = document.getElementById('cityInput');
@@ -55,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let notificationCheck = document.getElementById('notifications');
         let adhanCheck = document.getElementById('adhan');
-
+        
         let startUpCheck = document.getElementById('startUp');
         let updatesCheck = document.getElementById('updates');
 
@@ -66,7 +80,122 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let discordBtb = document.getElementById('discord');
         let githubBtn = document.getElementById('github');
+
+        let dropDowns = [algeria, egypt, isna, jakim, indonesia, mwl, makkah, karachi];
+
+        switch(method){
+            case '19':
+                algeria.classList.add('is-active');
+                break;
+            case '5':
+                egypt.classList.add('is-active');
+                break;
+            case '2':
+                isna.classList.add('is-active');
+                break;
+            case '17':
+                jakim.classList.add('is-active');
+                break;
+            case '20':
+                indonesia.classList.add('is-active');
+                break;
+            case '3':
+                mwl.classList.add('is-active');
+                break;
+            case '4':
+                makkah.classList.add('is-active');
+                break;
+            case '1':
+                karachi.classList.add('is-active');
+                break;
+            default:
+                mwl.classList.add('is-active');
+                break;
+        }        
+        algeria.addEventListener('click', () => {
+            localStorage.setItem('method', '19'); 
+            for (let i = 0; i < dropDowns.length; i++) {
+                let element = dropDowns[i];
+                element.classList.remove('is-active');
+            } 
+            algeria.classList.add('is-active');
+            methodDropDown.classList.toggle('is-active');
+        });
+        egypt.addEventListener('click', () => {
+            localStorage.setItem('method', '5');
+            for (let i = 0; i < dropDowns.length; i++) {
+                let element = dropDowns[i];
+                element.classList.remove('is-active');
+            } 
+            egypt.classList.add('is-active');
+            methodDropDown.classList.toggle('is-active');
+
+        });
+        isna.addEventListener('click', () => {
+            localStorage.setItem('method', '2');
+            for (let i = 0; i < dropDowns.length; i++) {
+                let element = dropDowns[i];
+                element.classList.remove('is-active');
+            } 
+            isna.classList.add('is-active');
+            methodDropDown.classList.toggle('is-active');
+
+        });
+        jakim.addEventListener('click', () => {
+            localStorage.setItem('method', '17');
+            for (let i = 0; i < dropDowns.length; i++) {
+                let element = dropDowns[i];
+                element.classList.remove('is-active');
+            } 
+            jakim.classList.add('is-active');
+            methodDropDown.classList.toggle('is-active');
+
+        });
+        indonesia.addEventListener('click', () => {
+            localStorage.setItem('method', '20');
+            for (let i = 0; i < dropDowns.length; i++) {
+                let element = dropDowns[i];
+                element.classList.remove('is-active');
+            } 
+            indonesia.classList.add('is-active');
+            methodDropDown.classList.toggle('is-active');
+
+        });
+        mwl.addEventListener('click', () => {
+            localStorage.setItem('method', '3');
+            for (let i = 0; i < dropDowns.length; i++) {
+                let element = dropDowns[i];
+                element.classList.remove('is-active');
+            } 
+            mwl.classList.add('is-active');
+            methodDropDown.classList.toggle('is-active');
+
+        });
+        makkah.addEventListener('click', () => {
+            localStorage.setItem('method', '4');
+            for (let i = 0; i < dropDowns.length; i++) {
+                let element = dropDowns[i];
+                element.classList.remove('is-active');
+            } 
+            makkah.classList.add('is-active');
+            methodDropDown.classList.toggle('is-active');
+
+        });
+        karachi.addEventListener('click', () => {
+            localStorage.setItem('method', '1');
+            for (let i = 0; i < dropDowns.length; i++) {
+                let element = dropDowns[i];
+                element.classList.remove('is-active');
+            } 
+            karachi.classList.add('is-active');
+            methodDropDown.classList.toggle('is-active');
+        });
+
+
         
+        methodDropDownBtn.addEventListener('click', () => {
+            methodDropDown.classList.toggle('is-active');
+        });
         discordBtb.addEventListener('click', () => {
             ipcRenderer.send('openDiscord');
         });

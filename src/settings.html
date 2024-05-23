@@ -69,7 +69,7 @@
             </div>
           </div>
         </div>
-        <div class="box ml-5 mb-6" style="max-width: 350px;">
+        <div class="box ml-5 mb-5" style="max-width: 350px;">
           <div class="field">
             <p class="control has-icons-right">
               <input id="cityInput" class="input" type="text" placeholder="City, ex. Toronto"/>
@@ -87,7 +87,30 @@
             </p>
           </div>
         </div>
-      </section>   
+        <div id="methodDrop" class="dropdown is is-shadowless ml-5 pt-0">
+          <div class="dropdown-trigger">
+            <button id="dropdownBtn" class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+              <span class="has-text-weight-medium">Calculation Method</span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu is-shadowless" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+              <a href="javascript:void(0);" id="algeria" class="dropdown-item"> Algerian Method</a>
+              <a href="javascript:void(0);" id="egypt" class="dropdown-item"> Egyptian General Authority of Survey</a>
+              <a href="javascript:void(0);" id="isna" class="dropdown-item"> Islamic Society of North America (ISNA)</a>
+              <a href="javascript:void(0);" id="jakim" class="dropdown-item"> Jabatan Kemajuan Islam Malaysia (JAKIM)</a>
+              <a href="javascript:void(0);" id="indonesia" class="dropdown-item"> Kementerian Agama Republik Indonesia</a>
+              <a href="javascript:void(0);" id="mwl" class="dropdown-item"> Muslim World League (MWL)</a>
+              <a href="javascript:void(0);" id="makkah" class="dropdown-item"> Umm Al-Qura University, Makkah</a>
+              <a href="javascript:void(0);" id="karachi" class="dropdown-item"> University of Islamic Sciences, Karachi</a>
+            </div>
+          </div>  
+        </div>
+
+      </section> 
       <hr>
       <section class="section py-1">
         <span class="icon-text">
@@ -204,10 +227,7 @@
               <span class="has-text-weight-semibold">Developed by:</span>
               <span> Kren1ch</span>
             </div>
-            <div class="column pb-3 pt-0"> 
-              <span class="has-text-weight-semibold">Prayer times:</span>
-              <span>  Islamic Society of North America</span>
-            </div>
+
             <div class="column">
               <span class="has-text-weight-semibold">App Version:</span>
               <span> 1.0.3</span>

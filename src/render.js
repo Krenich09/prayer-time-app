@@ -3,7 +3,6 @@ const { ipcRenderer} = require('electron');
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-
         if (localStorage.getItem('auto') === null) {
             localStorage.setItem('auto', true);
         }
@@ -60,23 +59,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Add or remove the appropriate class based on the isDark boolean
         if (boolDark) {
-            htmlElement.classList.add('theme-dark');
-            
-            
+            htmlElement.classList.add('theme-dark');  
         } else {
             htmlElement.classList.add('theme-light');
-
         }
 
         let city = '';
         let country = '';
-        
+        let continentCode = '';
+        let in_eu = false;
         if(savedAuto)
         {
             const response = await fetch('https://ipapi.co/json/');
             const data = await response.json();
             city = data.city;
             country = data.country_name;
+            console.log(data);
+            continentCode = data.continent_code;
+            in_eu = data.in_eu;
         }
         else
         {
@@ -93,8 +93,52 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('location').textContent = `${city}, ${country}`;
 
         }
-        const link = `http://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=2&adjustment=1`;
 
+        /* ===============================================================================
+        ,Method,#,Area
+        ,Algerian Method,19,Algeria
+        ,Egyptian General Authority of Survey,5,"Africa, Syria, Lebanon."
+        ,Islamic Society of North America (ISNA),2,"Canada, USA"
+        ,Jabatan Kemajuan Islam Malaysia (JAKIM),17,Malaysia
+        ,Kementerian Agama Republik Indonesia,20,Indonesia
+        ,Muslim World League (MWL),3,"Eu, China, Japan, Mongolia, Philippines, Russia, South Korea, Taiwan "
+        ,"Umm Al-Qura University, Makkah",4,Saudi Arabia
+        ,"University of Islamic Sciences, Karachi",1,"Pakistan, Afganistan, Bangladesh, India"
+        ===============================================================================  */
+
+        if (localStorage.getItem('method') === null) {
+            if(country === 'Algeria') {
+                localStorage.setItem('method', 19);
+            }
+            else if((continentCode === 'AF' && country != 'Algeria') || country === 'Syria' || country === 'Palestine' || country === 'Lebanon') {
+                localStorage.setItem('method', 5);
+            }
+            else if(country === 'United States' || country === 'Canada') {
+                localStorage.setItem('method', 2);
+            }
+            else if(country === 'Malaysia') {
+                localStorage.setItem('method', 17);
+            }
+            else if(country === 'Indonesia') {
+                localStorage.setItem('method', 20);
+            }
+            else if(in_eu || country === 'China' || country === 'Japan' || country === 'Mongolia' || country === 'Philippines' || country === 'Russia' || country === 'South Korea' || country === 'Taiwan') {
+                localStorage.setItem('method', 3);
+            }
+            else if(country === 'Saudi Arabia') {
+                localStorage.setItem('method', 4);
+            }
+            else if(country === 'Pakistan' || country === 'Afghanistan' || country === 'Bangladesh' || country === 'India') {
+                localStorage.setItem('method', 1);
+            }
+            else {
+                localStorage.setItem('method', 2);
+            }
+        }
+        let method = localStorage.getItem('method');
+
+
+        const link = `http://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=${method}&adjustment=1`;
         const response2 = await fetch(link);
         const data2 = await response2.json();
 
