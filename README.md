@@ -8,6 +8,7 @@ We're thrilled to introduce the initial release of our prayer time app for Windo
 
 - **Adhan Alerts:** Never miss a prayer with Adhan notifications. Currently features the Algerian TV Adhan sound ([YouTube link](https://www.youtube.com/watch?v=BSYGdLAmAfg)).
 - **Location Settings:** Set your prayer times automatically based on your current location, or manually adjust them as needed, (supports City or Country Inputs)..
+- **Calculation Method:** Change your preferred method from a vast selection.
 - **System Notifications:** Receive system notifications for prayer times, ensuring you're always aware of the upcoming salah.
 - **Quranic Verse of the Day:** Start your day with spiritual inspiration. 
 
